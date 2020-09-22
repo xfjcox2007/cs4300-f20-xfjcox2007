@@ -107,7 +107,7 @@
 
         // create and use a GLSL program
         const program = createProgramFromScripts(gl,
-                                                 "#vertex-shader-2d", "#fragment-shader-2d");
+          "#vertex-shader-2d", "#fragment-shader-2d");
         gl.useProgram(program);
 
         // get reference to GLSL attributes and uniforms
@@ -129,7 +129,7 @@
 
     const render = () => {
         gl.bindBuffer(gl.ARRAY_BUFFER,          // prepare buffer to populate vertices
-                      bufferCoords);
+            bufferCoords);
         gl.vertexAttribPointer(                 // configure how to consume buffer and populate
             attributeCoords,                    // a_coords attribute in GLSL program
             2,                                  // size = 2 components per iteration, i.e., (x, y)
@@ -141,9 +141,9 @@
 
         shapes.forEach(shape => {
             gl.uniform4f(uniformColor,
-                         shape.color.red,
-                         shape.color.green,
-                         shape.color.blue, 1);
+                shape.color.red,
+                shape.color.green,
+                shape.color.blue, 1);
 
             if(shape.type === RECTANGLE) {      // if it's a rectangle, then render it
                 renderRectangle(shape)
@@ -153,19 +153,19 @@
 
     const renderRectangle = (rectangle) => {
         const x1 = rectangle.position.x
-                   - rectangle.dimensions.width/2;      // (x1, y1) is top left corner
+            - rectangle.dimensions.width/2;      // (x1, y1) is top left corner
         const y1 = rectangle.position.y
-                   - rectangle.dimensions.height/2;
+            - rectangle.dimensions.height/2;
         const x2 = rectangle.position.x                 // (x2, y2) is bottom right corner
-                   + rectangle.dimensions.width/2;
+            + rectangle.dimensions.width/2;
         const y2 = rectangle.position.y
-                   + rectangle.dimensions.height/2;
+            + rectangle.dimensions.height/2;
 
         // populate the buffer with 6 vertices defining 2 triangles that make up the rectangle
         const float32Array = new Float32Array([
-                                                  x1, y1, x2, y1, x1, y2,
-                                                  x1, y2, x2, y1, x2, y2,
-                                              ])
+            x1, y1, x2, y1, x1, y2,
+            x1, y2, x2, y1, x2, y2,
+        ])
 
         gl.bufferData(gl.ARRAY_BUFFER, float32Array, gl.STATIC_DRAW);
 
@@ -177,13 +177,13 @@
     // height elements parse their text values to integers
     const addRectangle = () => {
         let x = parseInt(document
-                             .getElementById("x").value)
+            .getElementById("x").value)
         let y = parseInt(document
-                             .getElementById("y").value)
+            .getElementById("y").value)
         const width = parseInt(document
-                                   .getElementById("width").value)
+            .getElementById("width").value)
         const height = parseInt(document
-                                    .getElementById("height").value)
+            .getElementById("height").value)
 
         const rectangle = {
             type: RECTANGLE,
