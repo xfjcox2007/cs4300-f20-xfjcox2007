@@ -38,7 +38,7 @@
    vec2 zeroToOne = a_coords / u_resolution;
    vec2 zeroToTwo = zeroToOne * 2.0;
    vec2 minusOneToOne = zeroToTwo - 1.0;
-   vec2 clipSpace = minusOneToOne * vec2(1, -1);
+   vec2 clipSpace = minusOneToOne * vec2(1, 1);
    gl_Position = vec4(clipSpace, 0, 1);
  }
 </script>
