@@ -30,6 +30,29 @@ let shapes = [
         translation: {x: 300, y: 100},
         rotation: {z: 0},
         scale: {x: 50, y: 50}
+    },
+    {
+        type: CIRCLE,
+        position: origin,
+        dimensions: sizeOne,
+        color: {red: Math.random(),
+            green: Math.random(),
+            blue: Math.random()},
+        translation: {x: 200, y:200},
+        rotation: {z: 0},
+        scale: {x:50, y:50}
+    },
+
+    {
+        type: STAR,
+        position: origin,
+        dimensions: sizeOne,
+        color: {red: Math.random(),
+            green: Math.random(),
+            blue: Math.random()},
+        translation: {x: 300, y:200},
+        rotation: {z: 0},
+        scale: {x:50, y:50}
     }
 ]
 
@@ -67,7 +90,6 @@ const init = () => {
     const program = webglUtils.createProgramFromScripts(gl,
     "#vertex-shader-2d", "#fragment-shader-2d");
     gl.useProgram(program);
-    selectShape(0)
 
     // get reference to GLSL attributes and uniforms
     attributeCoords = gl.getAttribLocation(program, "a_coords");
