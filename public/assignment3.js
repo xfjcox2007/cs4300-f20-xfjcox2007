@@ -225,11 +225,6 @@ const addRectangle = (center) => {
             width,
             height
         },
-        color: {
-            red: Math.random(),
-            green: Math.random(),
-            blue: Math.random()
-        },
         color: colorRgb
     }
 
