@@ -233,7 +233,6 @@ const renderTriangle = (triangle) => {
     ])
 
     gl.bufferData(gl.ARRAY_BUFFER, float32Array, gl.STATIC_DRAW);
-
     gl.drawArrays(gl.TRIANGLES, 0, 3);
 }
 
@@ -336,8 +335,4 @@ const computeModelViewMatrix = (canvas, shape, aspect, zNear, zFar) => {
     M = m4.scale(M, shape.scale.x, shape.scale.y, shape.scale.z)
     return M
 }
-
-
-
-
 
