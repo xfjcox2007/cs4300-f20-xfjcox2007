@@ -63,8 +63,6 @@ const webglUtils = {
         camera.rotation[axis] = event.target.value
         render()
     },
-
-
     updateCameraAngle: (event) => {
         cameraAngleRadians = m4.degToRad(event.target.value);
         render();
@@ -169,8 +167,19 @@ const webglUtils = {
             30, 30, 30,   30,  0,  0,   30, 30,  0,
         ]
         const float32Array = new Float32Array(geometry)
+        gl.bindBuffer(gl.ARRAY_BUFFER, bufferCoords);
         gl.bufferData(gl.ARRAY_BUFFER, float32Array, gl.STATIC_DRAW)
-        var primitiveType = gl.TRIANGLES;
+        const normals = new Float32Array([
+           0,0, 1,  0,0, 1,  0,0, 1,    0,0, 1,  0,0, 1,  0,0, 1,
+           0,0,-1,  0,0,-1,  0,0,-1,    0,0,-1,  0,0,-1,  0,0,-1,
+           0,-1,0,  0,-1,0,  0,-1,0,    0,-1,0,  0,-1,0,  0,-1,0,
+           0, 1,0,  0, 1,0,  0, 1,0,    0, 1,0,  0, 1,0,  0, 1,0,
+           -1, 0,0, -1, 0,0, -1, 0,0,   -1, 0,0, -1, 0,0, -1, 0,0,
+           1, 0,0,  1, 0,0,  1, 0,0,    1, 0,0,  1, 0,0,  1 ,0,0,
+       ]);
+        gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, normals, gl.STATIC_DRAW);
+
         gl.drawArrays(gl.TRIANGLES, 0, 6 * 6);
     },
     renderRectangle: (rectangle) => {
@@ -281,4 +290,10 @@ const webglUtils = {
         var primitiveType = gl.TRIANGLES;
         gl.drawArrays(gl.TRIANGLES, 0, 16 * 6);
     },
+
+    updateLightDirection: (event, index) => {
+        lightSource[index] = parseFloat(event.target.value)
+        render()
+    },
+
 }
