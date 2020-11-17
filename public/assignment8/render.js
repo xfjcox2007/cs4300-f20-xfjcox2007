@@ -1,4 +1,4 @@
-let squareRotation = 0.0;                   // keep track of how many radians to rotate
+let squareRotation = 0.0;                   // For animation: keep track of how many radians to rotate
 
 const drawScene = (gl, parameters, buffers, deltaTime) => {
     clearScene(gl);
@@ -13,11 +13,19 @@ const drawScene = (gl, parameters, buffers, deltaTime) => {
         modelViewMatrix,
         [-0.0, 0.0, -6.0]);
 
+    // rotate around Z axis
     glMatrix.mat4.rotate(
         modelViewMatrix,
         modelViewMatrix,
         squareRotation,
         [0, 0, 1]);
+
+    // rotate around Y axis
+    glMatrix.mat4.rotate(
+        modelViewMatrix,
+        modelViewMatrix,
+        squareRotation * .7,
+        [0, 1, 0]);
 
     squareRotation += deltaTime;
 
@@ -28,10 +36,9 @@ const drawScene = (gl, parameters, buffers, deltaTime) => {
     setUniforms(gl, parameters,
                 projectionMatrix, modelViewMatrix);
 
-    // draw the square
-    gl.drawArrays(gl.TRIANGLE_STRIP,
-        0, // offset
-        4); // vertexCount
+    // draw the square by rendering indices
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
+    gl.drawElements(gl.TRIANGLES, 36, gl.UNSIGNED_SHORT, 0);
 }
 
 const clearScene = (gl) => {
@@ -62,7 +69,7 @@ const createProjectionMatrix = (gl) => {
 const configurePositionBufferRead = (gl, buffers, parameters) => {
         gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
         gl.vertexAttribPointer(
-            parameters.attribLocations.vertexPosition, 2, gl.FLOAT, false, 0, 0);
+            parameters.attribLocations.vertexPosition, 3, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(
             parameters.attribLocations.vertexPosition);
 }
