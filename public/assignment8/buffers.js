@@ -1,11 +1,12 @@
+
 const initializeBuffers = (gl) => {
     const positionBuffer = initializePositionBuffer(gl);
-    const colorBuffer = initializeColorBuffer(gl);
+    const textureCoordBuffer = initializeTextureBuffer(gl);
     const indexBuffer = initializeIndexBuffer(gl);
 
     return {
         position: positionBuffer,
-        color: colorBuffer,
+        textureCoord: textureCoordBuffer,
         indices: indexBuffer,
     };
 }
@@ -21,7 +22,6 @@ const initializePositionBuffer = (gl) => {
         1.0, -1.0, -1.0,    1.0,  1.0, -1.0,    1.0,  1.0,  1.0,    1.0, -1.0,  1.0,        // right face
         -1.0, -1.0, -1.0,   -1.0, -1.0,  1.0,   -1.0,  1.0,  1.0,   -1.0,  1.0, -1.0,       // left face
     ];
-
 
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
     return positionBuffer;
@@ -53,7 +53,7 @@ const initializeColorBuffer = (gl) => {
     return colorBuffer;
 }
 
-// Create indices taht refer the vertices and read from a buffer of indices that references the
+// Create indices that refer the vertices and read from a buffer of indices that references the
 // vertices. More efficient
 const initializeIndexBuffer = (gl) => {
     const indexBuffer = gl.createBuffer();
@@ -73,4 +73,26 @@ const initializeIndexBuffer = (gl) => {
     return indexBuffer
 }
 
+// Defines a texture coordinate for each vertex
+function initializeTextureBuffer(gl) {
+    const textureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
+
+    const textureCoordinates = [
+        0.0, 0.0,  1.0, 0.0,  1.0, 1.0,  0.0, 1.0,
+        0.0, 0.0,  1.0, 0.0,  1.0, 1.0,  0.0, 1.0,
+        0.0, 0.0,  1.0, 0.0,  1.0, 1.0,  0.0, 1.0,
+        0.0, 0.0,  1.0, 0.0,  1.0, 1.0,  0.0, 1.0,
+        0.0, 0.0,  1.0, 0.0,  1.0, 1.0,  0.0, 1.0,
+        0.0, 0.0,  1.0, 0.0,  1.0, 1.0,  0.0, 1.0,
+    ];
+
+    gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(textureCoordinates),
+        gl.STATIC_DRAW);
+
+    return textureCoordBuffer;
+
+}
 
